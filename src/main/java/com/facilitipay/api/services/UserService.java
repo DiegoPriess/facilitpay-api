@@ -58,6 +58,10 @@ public class UserService {
         return this.repository.findAll(PageRequest.of(page, size)).map(this::buildUserResponse);
     }
 
+    public Optional<UserResponse> login(final String email, final String password) {
+        return this.repository.findByEmailAndPassword(email, password).map(this::buildUserResponse);
+    }
+
     private UserResponse buildUserResponse(final User user) {
         return UserResponse
                 .builder()

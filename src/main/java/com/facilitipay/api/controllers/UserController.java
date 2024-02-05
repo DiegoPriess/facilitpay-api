@@ -48,4 +48,11 @@ public class UserController {
                                    @PathVariable Integer size) {
         return service.listPage(page, size);
     }
+
+    @GetMapping("/login/{email}/{password}")
+    public ResponseEntity<UserResponse> login(@PathVariable String email,
+                                              @PathVariable String password) {
+        return this.service.login(email, password).map(user -> new ResponseEntity<>(user, HttpStatus.OK))
+                                                  .orElseGet(() -> new ResponseEntity<>(HttpStatus.UNAUTHORIZED));
+    }
 }
